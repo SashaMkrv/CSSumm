@@ -97,7 +97,6 @@ class OptionsContent(BoxLayout):
 ##
 ##        
 ##        changeColor=ColorPicker()
-##        self.add_widget(changeColor)
 ##        changeColor.bind(color=on_color)
 
         def on_release_col(instance, x):
