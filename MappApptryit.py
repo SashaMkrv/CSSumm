@@ -4,7 +4,7 @@ from kivy.config import Config
 
 # override config values, no easy way to do it :/
 #Config.set ( 'graphics', 'width', config.state.window_width)
-Config.set('graphics','fullscreen',0)
+Config.set('graphics','fullscreen',1)
 Config.set('graphics','resizable',1)
 #Config.set ( 'graphics', 'height', state.window_height)
 
@@ -30,7 +30,7 @@ from kivy.properties import StringProperty, ListProperty, NumericProperty, Objec
 from kivy.graphics import Color, Rectangle
 
 allcols = 10
-allrows = 15
+allrows = 10
 
 allColor = {"blue": (0, .1, 1., 1.),
             "red": (1., 0, 0, 1.),
