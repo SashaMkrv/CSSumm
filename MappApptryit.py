@@ -1,12 +1,12 @@
-import sys
-sys.argv = [ sys.argv[0] ]        # so we can have command line 
-from kivy.config import Config
-
-# override config values, no easy way to do it :/
-#Config.set ( 'graphics', 'width', config.state.window_width)
-Config.set('graphics','fullscreen',1)
-Config.set('graphics','resizable',1)
-#Config.set ( 'graphics', 'height', state.window_height)
+##import sys
+##sys.argv = [ sys.argv[0] ]        # so we can have command line 
+##from kivy.config import Config
+##
+### override config values, no easy way to do it :/
+###Config.set ( 'graphics', 'width', config.state.window_width)
+##Config.set('graphics','fullscreen',1)
+##Config.set('graphics','resizable',1)
+###Config.set ( 'graphics', 'height', state.window_height)
 
 import kivy
 
