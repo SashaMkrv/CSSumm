@@ -2,14 +2,13 @@
 ##sys.argv = [ sys.argv[0] ]        # so we can have command line 
 ##from kivy.config import Config
 ##
-### override config values, no easy way to do it :/
-###Config.set ( 'graphics', 'width', config.state.window_width)
+## override config values, no easy way to do it :/
+##Config.set ( 'graphics', 'width', config.state.window_width)
 ##Config.set('graphics','fullscreen',1)
 ##Config.set('graphics','resizable',1)
-###Config.set ( 'graphics', 'height', state.window_height)
+##Config.set ( 'graphics', 'height', state.window_height)
 
 import kivy
-
 from kivy.app import App
 from kivy.clock import Clock
 #from kivy.uix.floatlayout import FloatLayout
@@ -20,7 +19,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.dropdown import DropDown
 
 from kivy.uix.popup import Popup
-from kivy.uix.colorpicker import ColorPicker
+#from kivy.uix.colorpicker import ColorPicker
 
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
@@ -28,6 +27,17 @@ from kivy.uix.label import Label
 
 from kivy.properties import StringProperty, ListProperty, NumericProperty, ObjectProperty
 from kivy.graphics import Color, Rectangle
+
+##################################################################
+gridFile = "grid1.txt"
+gridData = None
+try:
+    with open(gridFile) as myFile:
+        gridData = myFile.read()
+        myFile.close()
+
+except IOError as e:
+    print "Unable to open %s" % gridFile
 
 allcols = 10
 allrows = 10
@@ -192,6 +202,10 @@ class MappApp(App):
     def build(self):
         bigFren = MapGrid()
         return bigFren
+
+    def on_stop(self):
+        pass
+        
 
 if __name__ == '__main__':
     mappapp=MappApp()
