@@ -247,24 +247,27 @@ class MappApp(App):
 
             return ",".join(strings)
         
-        def createLines(itemList, allrows, allcols):
-            lists = []
-            while itemList:
-                
+        def createLine(itemList):
             return '|'.join(itemList)
 
         def createWhole(dic):
             return '\n'.join(lineList)
 
+        items = [[] for x in allrows] for y in allcols]
+
         itemL = []
         for child in self.bigfren.children:
-            itemL.append(child.stuff)
+            items[child.y][child.x] = createItem(child.stuff)
 
-        
+        lineList = []
+        for li in items:
+            lineList.append(createLines(li)
+
+        whole = createWhole(lineList)
         
         try:
             with open(gridFile, 'w') as myFile:
-                
+                myFile.write(whole)
             
         except IOError as e:
             pass
