@@ -243,8 +243,8 @@ class MappApp(App):
     
     def build(self):
 #        bigFren = MapGrid()
-        global babies
-        babies = self.bigFren.children
+##        global babies
+##        babies = self.bigFren.children
         return self.bigFren
 
     def on_stop(self):
@@ -265,9 +265,8 @@ class MappApp(App):
         items = [[None for x in xrange(allrows+2)] for y in xrange(allcols+2)]
 
         itemL = []
+        print "%d, %d" % (babies[0].x, babies[0].y)
         for child in babies:
-            print child.y
-            print child.x
             items[int(child.y)][int(child.x)] = createItem(child.stuff)
 
         lineList = []
