@@ -239,8 +239,35 @@ class MappApp(App):
         return bigFren
 
     def on_stop(self):
-        pass
+        def createItem(dic):
+            strings = []
+            for item in dic:
+                string = str(item)+':'+str(dic[item])
+                string.append(string)
+
+            return ",".join(strings)
         
+        def createLines(itemList, allrows, allcols):
+            lists = []
+            while itemList:
+                
+            return '|'.join(itemList)
+
+        def createWhole(dic):
+            return '\n'.join(lineList)
+
+        itemL = []
+        for child in self.bigfren.children:
+            itemL.append(child.stuff)
+
+        
+        
+        try:
+            with open(gridFile, 'w') as myFile:
+                
+            
+        except IOError as e:
+            pass
 
 if __name__ == '__main__':
     mappapp=MappApp()
