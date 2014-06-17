@@ -35,7 +35,7 @@ gridData = None
 dataGood = False
 
 defaultcols = 10
-defaultrow = 10
+defaultrows = 10
 try:
     with open(gridFile) as myFile:
         gridData = myFile.read()
@@ -56,8 +56,8 @@ if gridData:
         for data in item.split(','):
             allrows += 1
             dic = {}
-            datum = data.split(':', 1):
-                dic[datum[0]] = datum[1]
+            datum = data.split(':', 1)
+            dic[datum[0]] = datum[1]
 
     if not allrows or not allcols:
         dataGood = False
@@ -225,6 +225,9 @@ class MapGrid(GridLayout):
         Clock.schedule_once(self.showColor, 1)
         self.bind(size=self.on_resize)
 
+        global babies
+        babies = self.children
+
     def showColor(self, dt):
         for child in self.children:
             child.canvas.after.clear()
@@ -234,16 +237,22 @@ class MapGrid(GridLayout):
                           pos=child.pos)
 
 class MappApp(App):
+    def __init__(self, **kwargs):
+        super(MappApp, self).__init__(**kwargs)
+        self.bigFren = MapGrid()
+    
     def build(self):
-        bigFren = MapGrid()
-        return bigFren
+#        bigFren = MapGrid()
+        global babies
+        babies = self.bigFren.children
+        return self.bigFren
 
     def on_stop(self):
         def createItem(dic):
             strings = []
             for item in dic:
                 string = str(item)+':'+str(dic[item])
-                string.append(string)
+                strings.append(string)
 
             return ",".join(strings)
         
@@ -253,21 +262,24 @@ class MappApp(App):
         def createWhole(dic):
             return '\n'.join(lineList)
 
-        items = [[] for x in allrows] for y in allcols]
+        items = [[None for x in xrange(allrows+2)] for y in xrange(allcols+2)]
 
         itemL = []
-        for child in self.bigfren.children:
-            items[child.y][child.x] = createItem(child.stuff)
+        for child in babies:
+            print child.y
+            print child.x
+            items[int(child.y)][int(child.x)] = createItem(child.stuff)
 
         lineList = []
         for li in items:
-            lineList.append(createLines(li)
+            lineList.append(createLines(li))
 
         whole = createWhole(lineList)
         
         try:
             with open(gridFile, 'w') as myFile:
                 myFile.write(whole)
+                myFile.close()
             
         except IOError as e:
             pass
