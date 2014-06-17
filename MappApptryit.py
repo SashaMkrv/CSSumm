@@ -25,12 +25,17 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 
-from kivy.properties import StringProperty, ListProperty, NumericProperty, ObjectProperty
+from kivy.properties import StringProperty, ListProperty, NumericProperty, ObjectProperty, BooleanProperty
 from kivy.graphics import Color, Rectangle
 
 ##################################################################
 gridFile = "grid1.txt"
 gridData = None
+
+dataGood = False
+
+defaultcols = 10
+defaultrow = 10
 try:
     with open(gridFile) as myFile:
         gridData = myFile.read()
@@ -39,8 +44,31 @@ try:
 except IOError as e:
     print "Unable to open %s" % gridFile
 
-allcols = 10
-allrows = 10
+if gridData:
+    dataGood = True
+    
+    listsOListODics = []
+    gridData = gridData.split('\n')
+    allcols = len(gridData)
+    allrows = 0
+    for item in gridData.split('|'):
+        listODics = []
+        for data in item.split(','):
+            allrows += 1
+            dic = {}
+            datum = data.split(':', 1):
+                dic[datum[0]] = datum[1]
+
+    if not allrows or not allcols:
+        dataGood = False
+        allrows = defaultrows
+        allcols = defaultcols     
+                
+else:
+    allcols = defaultrows
+    allrows = defaultcols
+
+###################################################################
 
 allColor = {"blue": (0, .1, 1., 1.),
             "red": (1., 0, 0, 1.),
@@ -182,10 +210,17 @@ class MapGrid(GridLayout):
         self.padding = '8dp'
         self.spacing = '8dp'
         self.cols = allcols
-        for xC in range(allrows):
-            for yC in range(allcols):
-                butt = ThingButton(x=xC, y=yC)
-                self.add_widget(butt)
+        if dataGood:
+            for xC in range(allrows):
+                for yC in range(allcols):
+                    butt = ThingButton(x=xc,
+                                       y=yc,
+                                       stuff=listOListODics[x][y])
+        else:
+            for xC in range(allrows):
+                for yC in range(allcols):
+                    butt = ThingButton(x=xC, y=yC)
+                    self.add_widget(butt)
                 
         Clock.schedule_once(self.showColor, 1)
         self.bind(size=self.on_resize)
